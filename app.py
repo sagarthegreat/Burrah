@@ -23,9 +23,5 @@ class TestModel(db.Model):
 def index():
     return render_template("index.html")
 
-class Method(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    content= db.Column(db.String(200), nullable= False)
-
 if __name__ == "__main__":
     app.run(debug=True) #shows errors on page instead of 404 message

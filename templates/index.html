@@ -2,11 +2,59 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-<div class="outer-container">
-    <div class="inner-container1">
-        <div class="btn-div">
-            <a href="" class="button" id="start-workout">Link Here </a>
+<h1>This is the title! </h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="box1 col-12">
+                <div class="title-bar">
+                    <h3>Exercises: </h3>
+                </div>
+                <div class="description">
+                    <p>Exercises in here.</p>
+                </div>
+                
+            </div>
+            <div class="box2 col-12">
+                <div class="video-container">
+                    <video autoplay="true" id="videoElement">
+                </div>
+                <div class="start-btn">
+                    <a class="button">Start </a>
+                    <a class="button" id="stop-recording">End </a>
+                </div>
+
+            </div>
         </div>
-    </div>
+    </div>  
 </div>
+<script>
+    let video= document.querySelector("#videoElement");
+    let stopButton = document.querySelector("#stop-recording");
+    let stream; //new variable
+    if (navigator.mediaDevices.getUserMedia){
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(function(videoStream){
+            video.srcObject = videoStream;
+            stream = videoStream; 
+        })
+        .catch (function(error){
+            console.log("Something went wrong. Please try again.");
+        })
+    }
+    else {
+        console.log("Video Player not supported")
+    }
+
+    stopButton.addEventListener("click", function (){
+        if (stream){
+            let tracks = stream.getTracks();
+            tracks.forEach(function (track){
+                track.stop();
+            });
+        }
+    });
+
+
+</script>
 {% endblock %}
